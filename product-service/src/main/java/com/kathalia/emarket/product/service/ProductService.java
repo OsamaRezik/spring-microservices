@@ -31,6 +31,7 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
+        log.info("a get all request came");
         return repository.findAll()
                 .stream().map(p->new ProductResponse(p.getId(),p.getName(),p.getDescription(),p.getPrice()))
                 .toList();
