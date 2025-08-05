@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'Maven 3.8'
+        jdk 'JDK 21'
+    }
+
+    environment {
+        MAVEN_OPTS = "-Dmaven.compiler.source=21 -Dmaven.compiler.target=21"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                dir('product-service') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('product-service') {
+                    sh 'mvn test'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Build & Test for product-service completed using Java 21"
+        }
+        failure {
+            echo "❌ Build or tests failed"
+        }
+    }
+}
