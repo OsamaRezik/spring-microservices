@@ -1,11 +1,9 @@
 pipeline {
   agent {
-          docker {
-              image 'maven:3.8.8-eclipse-temurin-21'
-          }
+           dockerContainer('maven:3.8.8-eclipse-temurin-21')
       }
 
-    
+
 
     environment {
         MAVEN_OPTS = "-Dmaven.compiler.source=21 -Dmaven.compiler.target=21"
